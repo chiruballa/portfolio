@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Chiru Chandana Surya Hasa Balla - RTL, Design Verification, FPGA/HLS, Low Power, Memory Design, and VLSI Engineering." />
+  <title>Chiru Balla | RTL, FPGA & VLSI Portfolio</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0c1b2d;
+      --panel: rgba(255, 255, 255, 0.075);
+      --panel-2: rgba(255, 255, 255, 0.115);
+      --text: #edf7ff;
+      --muted: #a9bbca;
+      --muted-2: #7891a7;
+      --cyan: #28f0ff;
+      --mint: #56f5a7;
+      --violet: #ab7cff;
+      --pink: #ff6cab;
+      --amber: #ffc857;
+      --line: rgba(255, 255, 255, 0.14);
+      --shadow: 0 26px 80px rgba(0, 0, 0, 0.42);
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --radius-sm: 14px;
+      --max: 1180px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    [data-theme="light"] {
+      --bg: #f3f8ff;
+      --bg-soft: #ffffff;
+      --panel: rgba(255, 255, 255, 0.82);
+      --panel-2: rgba(255, 255, 255, 0.96);
+      --text: #0a1524;
+      --muted: #445b70;
+      --muted-2: #677d90;
+      --cyan: #007d96;
+      --mint: #078b5d;
+      --violet: #6a45d8;
+      --pink: #d32270;
+      --amber: #ad7200;
+      --line: rgba(8, 24, 40, 0.13);
+      --shadow: 0 22px 70px rgba(30, 82, 124, 0.16);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 15% 14%, rgba(40, 240, 255, 0.25), transparent 28%),
+        radial-gradient(circle at 88% 12%, rgba(171, 124, 255, 0.27), transparent 32%),
+        radial-gradient(circle at 65% 82%, rgba(86, 245, 167, 0.17), transparent 28%),
+        linear-gradient(135deg, var(--bg) 0%, #0a1728 42%, #07111f 100%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.82), rgba(0,0,0,0.1));
+      pointer-events: none;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    strong { color: var(--text); }
+    .container { width: min(var(--max), calc(100% - 42px)); margin-inline: auto; }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 300;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0;
+      z-index: 500;
+      background: linear-gradient(90deg, var(--cyan), var(--mint), var(--violet), var(--pink));
+      box-shadow: 0 0 16px rgba(40, 240, 255, 0.58);
+    }
+
+    .nav {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(var(--max), calc(100% - 34px));
+      z-index: 400;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(7, 17, 31, 0.68);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.22);
+    }
+
+    [data-theme="light"] .nav { background: rgba(255,255,255,0.73); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 11px 14px 11px 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.07em;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 11px;
+      background: conic-gradient(from 180deg, var(--cyan), var(--mint), var(--violet), var(--pink), var(--cyan));
+      position: relative;
+      box-shadow: 0 0 28px rgba(40, 240, 255, 0.38);
+    }
+
+    .brand-mark::after {
+      content: "CB";
+      position: absolute;
+      inset: 3px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--bg-soft);
+      color: var(--text);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links a,
+    .theme-toggle {
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 9px 11px;
+      border-radius: 999px;
+      transition: 0.22s ease;
+      background: transparent;
+      font-family: var(--font);
+      cursor: pointer;
+    }
+
+    .nav-links a:hover,
+    .theme-toggle:hover {
+      color: var(--text);
+      border-color: var(--line);
+      background: var(--panel);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 132px 0 82px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      font-size: 12px;
+      font-family: var(--mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 0 0 rgba(86, 245, 167, 0.7);
+      animation: pulse 1.7s infinite;
+    }
+
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 12px rgba(86, 245, 167, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(86, 245, 167, 0); }
+    }
+
+    h1 {
+      margin-top: 22px;
+      font-size: clamp(3.1rem, 7.2vw, 7.2rem);
+      line-height: 0.92;
+      letter-spacing: -0.075em;
+      font-weight: 900;
+    }
+
+    .gradient-text {
+      display: block;
+      background: linear-gradient(105deg, var(--cyan), var(--mint), var(--violet), var(--pink));
+      background-size: 250% 250%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientShift 7s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .role-line {
+      margin-top: 22px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: clamp(0.9rem, 1.3vw, 1.08rem);
+    }
+
+    .cursor {
+      color: var(--mint);
+      animation: blink 1s steps(1) infinite;
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero-copy {
+      margin-top: 22px;
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-weight: 760;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+    }
+
+    .btn-primary {
+      border: 0;
+      color: #06101c;
+      background: linear-gradient(110deg, var(--cyan), var(--mint));
+      box-shadow: 0 16px 42px rgba(40, 240, 255, 0.18);
+    }
+
+    .btn-secondary { background: var(--panel); color: var(--text); }
+    .btn:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+
+    .hero-card {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      background: linear-gradient(160deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: conic-gradient(from 130deg, transparent, rgba(40,240,255,0.44), transparent, rgba(171,124,255,0.38), transparent);
+      z-index: -1;
+      animation: rotate 9s linear infinite;
+    }
+
+    @keyframes rotate { to { transform: rotate(1turn); } }
+
+    .terminal {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(2, 11, 22, 0.66);
+      overflow: hidden;
+    }
+
+    [data-theme="light"] .terminal { background: rgba(255,255,255,0.62); }
+
+    .terminal-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot.red { background: #ff6b6b; }
+    .dot.yellow { background: #ffd166; }
+    .dot.green { background: #06d6a0; }
+    .file-name { margin-left: auto; color: var(--muted-2); font-family: var(--mono); font-size: 12px; }
+
+    .code {
+      padding: 18px;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--muted);
+      min-height: 244px;
+    }
+
+    .code-row { display: grid; grid-template-columns: 34px 1fr; gap: 10px; margin: 9px 0; }
+    .line-no { color: var(--muted-2); text-align: right; user-select: none; }
+    .kw { color: var(--violet); }
+    .fn { color: var(--cyan); }
+    .val { color: var(--mint); }
+    .cm { color: var(--muted-2); }
+    .str { color: var(--amber); }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 12px;
+      background: var(--panel);
+      text-align: center;
+    }
+
+    .metric-value {
+      display: block;
+      font-size: 1.55rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: var(--text);
+    }
+
+    .metric:nth-child(1) .metric-value { color: var(--cyan); }
+    .metric:nth-child(2) .metric-value { color: var(--mint); }
+    .metric:nth-child(3) .metric-value { color: var(--violet); }
+    .metric-label { display: block; margin-top: 3px; color: var(--muted); font-size: 0.76rem; }
+
+    section { padding: 92px 0; }
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.52fr 1fr;
+      gap: 26px;
+      align-items: end;
+      margin-bottom: 32px;
+    }
+
+    .kicker {
+      color: var(--cyan);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+      font-weight: 900;
+    }
+
+    .section-note { color: var(--muted); max-width: 650px; }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .glass {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--panel);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 14px 42px rgba(0,0,0,0.15);
+      transition: transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+    }
+
+    .glass:hover {
+      transform: translateY(-6px);
+      border-color: rgba(40,240,255,0.45);
+      background: var(--panel-2);
+      box-shadow: var(--shadow);
+    }
+
+    .about-card { grid-column: span 7; padding: 26px; }
+    .focus-card { grid-column: span 5; padding: 26px; }
+
+    .about-card p { color: var(--muted); margin-top: 12px; }
+
+    .tag-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.045);
+    }
+    .tag::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+    .tag:nth-child(3n)::before { background: var(--mint); box-shadow: 0 0 12px var(--mint); }
+    .tag:nth-child(4n)::before { background: var(--violet); box-shadow: 0 0 12px var(--violet); }
+
+    .role-list { display: grid; gap: 11px; margin-top: 18px; }
+    .role-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(255,255,255,0.045);
+    }
+    .role-pill span { color: var(--muted); font-size: 13px; }
+
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .stat-card { padding: 20px; text-align: left; }
+    .stat-card b { display: block; color: var(--text); font-size: clamp(1.6rem, 3vw, 2.55rem); line-height: 1; letter-spacing: -0.055em; }
+    .stat-card span { display: block; color: var(--muted); font-size: 0.82rem; margin-top: 10px; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .skill-card { padding: 22px; min-height: 220px; position: relative; overflow: hidden; }
+    .skill-card::after {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -80px;
+      top: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(40,240,255,0.24), transparent 65%);
+    }
+    .skill-icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(40,240,255,0.18), rgba(171,124,255,0.18));
+      border: 1px solid var(--line);
+      font-size: 21px;
+      margin-bottom: 15px;
+    }
+    .skill-card h3, .project-card h3, .timeline-content h3, .mini-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .skill-card p, .project-card p, .timeline-content p, .mini-card p { color: var(--muted); font-size: 0.95rem; }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 18px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 16px;
+      bottom: 16px;
+      left: 20px;
+      width: 2px;
+      background: linear-gradient(var(--cyan), var(--mint), var(--violet));
+      opacity: 0.55;
+    }
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .timeline-dot {
+      width: 42px;
+      height: 42px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      color: #06101c;
+      font-weight: 900;
+      box-shadow: 0 0 34px rgba(40,240,255,0.25);
+      z-index: 1;
+    }
+    .timeline-content { padding: 24px; }
+    .date { color: var(--cyan); font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .sub { color: var(--muted-2); font-size: 0.92rem; margin-bottom: 12px; }
+    .clean-list { list-style: none; display: grid; gap: 10px; margin-top: 12px; }
+    .clean-list li { position: relative; padding-left: 22px; color: var(--muted); }
+    .clean-list li::before { content: "↳"; position: absolute; left: 0; color: var(--mint); }
+
+    .project-toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .filter-btn {
+      color: var(--muted);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 13px;
+      cursor: pointer;
+      transition: .22s ease;
+      font-family: var(--font);
+      font-weight: 750;
+    }
+    .filter-btn.active, .filter-btn:hover { color: #06101c; background: linear-gradient(110deg, var(--cyan), var(--mint)); border-color: transparent; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .project-card {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      min-height: 314px;
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--cyan), var(--mint), var(--violet), var(--pink));
+    }
+    .project-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+    .project-num { font-family: var(--mono); color: var(--muted-2); font-size: 12px; }
+    .project-badge {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 8px;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .highlight {
+      margin: 16px 0;
+      padding: 13px 14px;
+      border: 1px solid rgba(86, 245, 167, 0.28);
+      border-radius: 15px;
+      color: var(--text);
+      background: rgba(86, 245, 167, 0.095);
+      font-weight: 800;
+      font-size: 0.93rem;
+    }
+    .project-card .tag-wrap { margin-top: auto; }
+    .project-card.hide { display: none; }
+
+    .mini-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .mini-card { padding: 24px; }
+    .mini-card .icon { font-size: 29px; margin-bottom: 10px; display: inline-block; }
+
+    .contact-panel {
+      position: relative;
+      overflow: hidden;
+      padding: 34px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 18% 20%, rgba(40,240,255,0.22), transparent 24%),
+        radial-gradient(circle at 82% 38%, rgba(171,124,255,0.24), transparent 29%),
+        linear-gradient(140deg, rgba(255,255,255,0.12), rgba(255,255,255,0.055));
+      box-shadow: var(--shadow);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .contact-panel h2 { margin-bottom: 14px; }
+    .contact-panel p { color: var(--muted); max-width: 680px; }
+    .contact-links { display: grid; gap: 10px; }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 14px 15px;
+      background: rgba(255,255,255,0.055);
+      color: var(--text);
+      transition: .22s ease;
+      word-break: break-word;
+    }
+    .contact-link:hover { transform: translateX(5px); border-color: rgba(40,240,255,0.55); background: rgba(40,240,255,0.09); }
+
+    footer {
+      padding: 28px 0 44px;
+      color: var(--muted-2);
+      font-family: var(--mono);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .72s ease, transform .72s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    .chip-source {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: var(--mono);
+      color: var(--muted-2);
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid, .section-head, .contact-grid { grid-template-columns: 1fr; }
+      .about-card, .focus-card { grid-column: span 12; }
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid, .projects-grid, .mini-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+      h1 { letter-spacing: -0.055em; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 28px, var(--max)); }
+      .nav { top: 10px; width: calc(100% - 18px); }
+      .brand { font-size: 10px; }
+      .hero { padding-top: 104px; }
+      .hero-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .metrics, .stat-strip, .skills-grid, .projects-grid, .mini-grid { grid-template-columns: 1fr; }
+      .code { font-size: 11px; padding: 14px; overflow-x: auto; }
+      .timeline-item { grid-template-columns: 42px 1fr; gap: 12px; }
+      .timeline::before { left: 18px; }
+      .timeline-dot { width: 36px; height: 36px; border-radius: 13px; }
+      section { padding: 66px 0; }
+      .contact-panel { padding: 24px; }
+    }
+
+    @media print {
+      body { background: white; color: black; }
+      body::before, body::after, .noise, .progress, .nav, .theme-toggle { display: none !important; }
+      .glass, .hero-card, .contact-panel { box-shadow: none; border: 1px solid #d8d8d8; background: white; }
+      .hero { min-height: auto; padding: 30px 0; }
+      section { padding: 28px 0; }
+      .gradient-text { color: #0a1524; background: none; -webkit-background-clip: unset; background-clip: unset; }
+      .btn, .project-toolbar { display: none; }
+      a { color: black; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="progress" id="progress"></div>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a href="#home" class="brand" aria-label="Go to top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>CHIRU_BALLA.portfolio</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" type="button" id="themeToggle" aria-label="Toggle dark and light mode">Theme</button>
+    </div>
+  </nav>
+
+  <main id="home">
+    <header class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy-block reveal">
+          <span class="eyebrow"><span class="pulse-dot"></span> Graduating May 2026 · Actively interviewing</span>
+          <h1>Chiru<br><span class="gradient-text">Balla</span></h1>
+          <p class="role-line">// <span id="typeText">RTL Design Engineer</span><span class="cursor">_</span></p>
+          <p class="hero-copy">
+            M.S. ECE (VLSI/Microelectronics) at Illinois Tech — 3.80 GPA, graduating May 2026. I design RTL, verify AXI4 interfaces at waveform level, and push CNN models through HLS onto FPGAs. The projects here all have real numbers behind them.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">View Featured Projects</a>
+            <a class="btn btn-secondary" href="mailto:chiruchandu25@gmail.com">Contact Me</a>
+          </div>
+          <div class="tag-wrap" aria-label="Core technologies">
+            <span class="tag">Verilog</span>
+            <span class="tag">SystemVerilog</span>
+            <span class="tag">AMBA AXI4</span>
+            <span class="tag">Vitis HLS</span>
+            <span class="tag">Cadence</span>
+            <span class="tag">Synopsys</span>
+          </div>
+        </div>
+
+        <aside class="hero-card reveal" aria-label="Portfolio code preview">
+          <div class="terminal">
+            <div class="terminal-top">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <span class="file-name">front_end_engineer.sv</span>
+            </div>
+            <div class="code" aria-hidden="true">
+              <div class="code-row"><span class="line-no">01</span><span><span class="kw">module</span> <span class="fn">candidate_profile</span>();</span></div>
+              <div class="code-row"><span class="line-no">02</span><span>  <span class="kw">localparam</span> ROLE = <span class="str">"RTL | DV | FPGA"</span>;</span></div>
+              <div class="code-row"><span class="line-no">03</span><span>  <span class="kw">logic</span> axi4_ready = <span class="val">1'b1</span>;</span></div>
+              <div class="code-row"><span class="line-no">04</span><span>  <span class="kw">assign</span> impact = <span class="fn">speedup</span>(<span class="val">1065</span>) + <span class="fn">power_save</span>(<span class="val">30.8</span>);</span></div>
+              <div class="code-row"><span class="line-no">05</span><span>  <span class="cm">// AXI4 memory datapath, HLS CNN accelerator, SRAM PPA</span></span></div>
+              <div class="code-row"><span class="line-no">06</span><span><span class="kw">endmodule</span></span></div>
+            </div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><span class="metric-value">1065x</span><span class="metric-label">FPGA speedup</span></div>
+            <div class="metric"><span class="metric-value">30.8%</span><span class="metric-label">Power reduction</span></div>
+            <div class="metric"><span class="metric-value">8GB</span><span class="metric-label">NAND controller</span></div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="kicker">Profile</p>
+            <h2>Five disciplines, one engineer.</h2>
+          </div>
+          <p class="section-note">
+            Five years of academic and industry work across RTL design, memory-controller datapaths, FPGA acceleration, and analog circuit analysis — built from the ground up, not from templates.
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <article class="glass about-card reveal">
+            <p class="kicker">About Me</p>
+            <h3>I build hardware from spec to verified silicon — and I care about the numbers.</h3>
+            <p>
+              My work lives at the RTL-to-silicon boundary: writing Verilog/SystemVerilog datapaths, implementing AMBA AXI4 controller interfaces, debugging functional mismatches at waveform level, and measuring real power numbers with VCD/SAIF flows. The CNN accelerator I built on PYNQ-Z2 ran 1065x faster than the CPU baseline — that kind of outcome is what I'm chasing in every project.
+            </p>
+            <p>
+              I am finishing my M.S. in ECE (VLSI/Microelectronics) at Illinois Tech with a 3.80 GPA and am actively looking for RTL design, design verification, FPGA, or memory roles in the semiconductor industry.
+            </p>
+            <span class="chip-source">Focus: ASIC front-end · RTL design · DV · FPGA acceleration · low-power VLSI</span>
+          </article>
+
+          <aside class="glass focus-card reveal">
+            <p class="kicker">Target Roles</p>
+            <h3>Where I fit on your team</h3>
+            <div class="role-list">
+              <div class="role-pill"><strong>RTL Design Engineer</strong><span>Datapaths, FSMs, AXI4</span></div>
+              <div class="role-pill"><strong>Design Verification Engineer</strong><span>SV tests, debug, coverage</span></div>
+              <div class="role-pill"><strong>FPGA / HLS Engineer</strong><span>Vitis, Vivado, PYNQ</span></div>
+              <div class="role-pill"><strong>Low Power VLSI Engineer</strong><span>Clock gating, VCD/SAIF</span></div>
+              <div class="role-pill"><strong>Memory Design Engineer</strong><span>NAND, SRAM, FinFET</span></div>
+            </div>
+          </aside>
+        </div>
+
+          <div class="stat-strip">
+          <div class="glass stat-card reveal"><b>30</b><span>AXI4 directed + random test scenarios — zero data-integrity errors</span></div>
+          <div class="glass stat-card reveal"><b>8</b><span>Functional mismatches root-caused and fixed through waveform debug</span></div>
+          <div class="glass stat-card reveal"><b>100%</b><span>Pass rate on all verification suites — read/write and FSM detection</span></div>
+          <div class="glass stat-card reveal"><b>~85%</b><span>CIFAR-10 accuracy after INT16 quantization on PYNQ-Z2</span></div>
+          <div class="glass stat-card reveal"><b>~35%</b><span>Unselected-row leakage cut in 8T SRAM vs 6T baseline</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="kicker">Technical Stack</p>
+            <h2>Built around hardware impact, not buzzwords.</h2>
+          </div>
+          <p class="section-note">
+            Every tool here has shipped code behind it. Grouped by how I actually use them: writing RTL, closing verification, integrating protocols, pushing HLS through timing, and measuring power on real silicon.
+          </p>
+        </div>
+
+        <div class="skills-grid">
+          <article class="glass skill-card reveal">
+            <div class="skill-icon">⚙️</div>
+            <h3>HDL & RTL Design</h3>
+            <p>Synthesizable Verilog and SystemVerilog — datapaths, FSMs, clock-gating logic, and microarchitecture. I write for area and timing, not just simulation.</p>
+          </article>
+          <article class="glass skill-card reveal">
+            <div class="skill-icon">🧪</div>
+            <h3>Functional Verification</h3>
+            <p>Directed and random testbenches in SystemVerilog, corner-case stimulus, waveform-level signal debug, functional coverage concepts, and regression-ready test plans.</p>
+          </article>
+          <article class="glass skill-card reveal">
+            <div class="skill-icon">🔌</div>
+            <h3>Protocols & Interfaces</h3>
+            <p>AMBA AXI4 master/slave interface design — burst transactions, VALID/READY handshake timing, controller-to-memory datapath integration, and AXI4-Lite SoC connectivity.</p>
+          </article>
+          <article class="glass skill-card reveal">
+            <div class="skill-icon">🚀</div>
+            <h3>FPGA, HLS & Edge AI</h3>
+            <p>Vitis HLS pragmas (DATAFLOW, PIPELINE, ARRAY_PARTITION), Vivado IP integration, HLS co-simulation, and hardware/software co-design on Zynq-7020/PYNQ. Built an accelerator that hit 1065x CPU speedup.</p>
+          </article>
+          <article class="glass skill-card reveal">
+            <div class="skill-icon">🔋</div>
+            <h3>Low Power & Memory</h3>
+            <p>Standard and enhanced clock-gating, VCD/SAIF switching-activity analysis, PrimePower flows, and SRAM cell characterization — 6T/8T in FinFET ASAP7, measured access-delay vs. leakage trade-offs.</p>
+          </article>
+          <article class="glass skill-card reveal">
+            <div class="skill-icon">🛠️</div>
+            <h3>EDA, Programming & Tools</h3>
+            <p>Cadence Virtuoso, Innovus, Xcelium, SimVision, Synopsys Design Compiler, Formality, PrimePower, Python, C, C++, TCL, Linux, Git, PyTorch, and quantization workflows.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="kicker">Experience</p>
+            <h2>Where the real work happened.</h2>
+          </div>
+          <p class="section-note">
+            Two engineering stints where simulated behavior had to match spec — no guessing, every mismatch root-caused and resolved.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <div class="timeline-dot">01</div>
+            <div class="glass timeline-content">
+              <p class="date">MAY 2023 - OCT 2023</p>
+              <h3>Research Intern - RTL Design</h3>
+              <p class="sub">Research Centre Imarat (RCI-DRDO), Hyderabad, India</p>
+              <ul class="clean-list">
+                <li>Developed and verified Verilog/SystemVerilog read/write datapath RTL for an 8GB NAND Flash controller within a five-engineer R&D team.</li>
+                <li>Implemented AMBA AXI4 master/slave interface behavior using a two-cycle VALID/READY handshake across burst and single-beat transactions.</li>
+                <li>Executed 30 directed and random functional scenarios with zero data-integrity errors and zero protocol violations across simulation runs.</li>
+                <li>Root-caused and resolved 8 functional mismatches through waveform and signal-level debug, driving the controller interface suite to a 100% pass rate.</li>
+              </ul>
+              <div class="tag-wrap">
+                <span class="tag">Verilog</span><span class="tag">SystemVerilog</span><span class="tag">AMBA AXI4</span><span class="tag">NAND Flash</span><span class="tag">Waveform Debug</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal">
+            <div class="timeline-dot">02</div>
+            <div class="glass timeline-content">
+              <p class="date">MAY 2021 - JUL 2021</p>
+              <h3>Technical Intern - Digital Design</h3>
+              <p class="sub">Techvanto Academy, Delhi, India</p>
+              <ul class="clean-list">
+                <li>Designed and simulated an FSM-based sequence detector in Verilog HDL for real-time pattern detection.</li>
+                <li>Redesigned state encoding from 6 states to 4 states, reducing redundant transitions and combinational logic complexity.</li>
+                <li>Validated behavior across 12 input pattern sequences, achieving 100% correct detection with zero false positives or missed detections.</li>
+              </ul>
+              <div class="tag-wrap">
+                <span class="tag">FSM Design</span><span class="tag">Verilog</span><span class="tag">RTL Simulation</span><span class="tag">Test Plan</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="kicker">Featured Projects</p>
+            <h2>Projects with numbers behind every claim.</h2>
+          </div>
+          <p class="section-note">
+            Six projects, all with measured outcomes. Filter by discipline or scroll through — every highlight box has a real number attached to it.
+          </p>
+        </div>
+
+        <div class="project-toolbar reveal" aria-label="Project filters">
+          <button class="filter-btn active" type="button" data-filter="all">All</button>
+          <button class="filter-btn" type="button" data-filter="rtl">RTL</button>
+          <button class="filter-btn" type="button" data-filter="dv">Verification</button>
+          <button class="filter-btn" type="button" data-filter="fpga">FPGA/HLS</button>
+          <button class="filter-btn" type="button" data-filter="power">Low Power</button>
+          <button class="filter-btn" type="button" data-filter="memory">Memory</button>
+        </div>
+
+        <div class="projects-grid">
+          <article class="glass project-card reveal" data-category="fpga rtl dv">
+            <div class="project-top"><span class="project-num">PROJECT 01</span><span class="project-badge">FPGA/HLS</span></div>
+            <h3>FPGA-Accelerated VGGTiny CNN on CIFAR-10</h3>
+            <p>Designed, trained, quantized, and accelerated a custom 819K-parameter VGG-style CNN. Used profiling to isolate the Block-0 3x3 convolution bottleneck and exported INT16 weights, bias, GroupNorm gamma, and golden tensors for hardware/software co-verification.</p>
+            <div class="highlight">~1065x speedup, ~85% accuracy, MSE=0 output, 0.36s vs 384s CPU baseline</div>
+            <div class="tag-wrap"><span class="tag">Vitis HLS</span><span class="tag">Vivado</span><span class="tag">PYNQ-Z2</span><span class="tag">AXI4</span><span class="tag">INT16</span></div>
+          </article>
+
+          <article class="glass project-card reveal" data-category="rtl dv power">
+            <div class="project-top"><span class="project-num">PROJECT 02</span><span class="project-badge">LOW POWER</span></div>
+            <h3>Low-Power 8x8 Shift-Add Multiplier</h3>
+            <p>Wrote Verilog RTL for a shift-add multiplier, validated it with directed and random corner-case tests, then applied standard and enhanced clock-gating to reduce dynamic power. Power numbers confirmed with VCD/SAIF analysis.</p>
+            <div class="highlight">30.8% power reduction from 170.5649 µW to 118.0167 µW using VCD/SAIF analysis</div>
+            <div class="tag-wrap"><span class="tag">Verilog</span><span class="tag">Clock Gating</span><span class="tag">VCD/SAIF</span><span class="tag">Testbench</span><span class="tag">Power Analysis</span></div>
+          </article>
+
+          <article class="glass project-card reveal" data-category="memory power dv">
+            <div class="project-top"><span class="project-num">PROJECT 03</span><span class="project-badge">MEMORY</span></div>
+            <h3>Leakage Analysis of 6T and 8T SRAM Cells</h3>
+            <p>Designed and characterized 6T and 8T SRAM cells using FinFET ASAP7 technology. Evaluated read/write functionality, leakage current, power, and access-delay trade-offs to study low-power memory behavior.</p>
+            <div class="highlight">~35% unselected-row leakage reduction in 8T SRAM with ~12% access-delay cost</div>
+            <div class="tag-wrap"><span class="tag">Cadence Virtuoso</span><span class="tag">ASAP7</span><span class="tag">6T/8T SRAM</span><span class="tag">Leakage</span></div>
+          </article>
+
+          <article class="glass project-card reveal" data-category="rtl dv memory">
+            <div class="project-top"><span class="project-num">PROJECT 04</span><span class="project-badge">RTL/DV</span></div>
+            <h3>8GB NAND Flash Memory Controller Datapath</h3>
+            <p>Designed and verified read/write datapath RTL for an 8GB NAND Flash controller over AMBA AXI4. Ran master/slave handshake verification, controller-to-memory integration tests, and confirmed data integrity across every scenario.</p>
+            <div class="highlight">30 test scenarios, zero data-integrity errors, zero AXI4 protocol violations</div>
+            <div class="tag-wrap"><span class="tag">NAND Flash</span><span class="tag">AMBA AXI4</span><span class="tag">Datapath</span><span class="tag">Simulation</span></div>
+          </article>
+
+          <article class="glass project-card reveal" data-category="rtl dv">
+            <div class="project-top"><span class="project-num">PROJECT 05</span><span class="project-badge">DIGITAL DESIGN</span></div>
+            <h3>FSM-Based Sequence Detector</h3>
+            <p>Built and verified a Verilog FSM-based sequence detector for real-time pattern detection. Cut state encoding from 6 to 4 states by eliminating redundant transitions — smaller logic, same correct output.</p>
+            <div class="highlight">12 input pattern sequences verified with 100% detection and zero false positives</div>
+            <div class="tag-wrap"><span class="tag">FSM</span><span class="tag">Verilog</span><span class="tag">RTL Simulation</span><span class="tag">State Optimization</span></div>
+          </article>
+
+          <article class="glass project-card reveal" data-category="dv power rtl">
+            <div class="project-top"><span class="project-num">PROJECT 06</span><span class="project-badge">VERIFICATION</span></div>
+            <h3>Power-Aware Functional Verification Flow</h3>
+            <p>Ran directed testbenches alongside VCD/SAIF switching-activity capture to validate both correctness and power numbers in the same flow. Corner-case coverage was the priority — every testbench was written to break something before calling the design clean.</p>
+            <div class="highlight">Power delta confirmed via SAIF — before/after clock-gating measured in the same run, no guesswork</div>
+            <div class="tag-wrap"><span class="tag">SystemVerilog</span><span class="tag">Functional Verification</span><span class="tag">Waveforms</span><span class="tag">SAIF</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <p class="kicker">Education, Research & Recognition</p>
+            <h2>Degrees, research, and a patent before graduation.</h2>
+          </div>
+          <p class="section-note">
+            IEEE-published, patent-listed, and competition-placed — the academic record that backs the project work above.
+          </p>
+        </div>
+
+        <div class="mini-grid">
+          <article class="glass mini-card reveal">
+            <span class="icon">🎓</span>
+            <h3>M.S. Electrical and Computer Engineering</h3>
+            <p>Illinois Institute of Technology, Chicago, IL</p>
+            <p><strong>Specialization:</strong> VLSI and Microelectronics</p>
+            <p><strong>Graduation:</strong> May 2026 | <strong>GPA:</strong> 3.80/4.00</p>
+          </article>
+          <article class="glass mini-card reveal">
+            <span class="icon">📘</span>
+            <h3>B.Tech Electronics and Communication Engineering</h3>
+            <p>Lovely Professional University, Punjab, India</p>
+            <p><strong>Graduated:</strong> June 2023</p>
+            <p><strong>GPA:</strong> 3.20/4.00</p>
+          </article>
+          <article class="glass mini-card reveal">
+            <span class="icon">🏆</span>
+            <h3>Publications, Patent & Awards</h3>
+            <p>Co-author of “Smart Work Jacket for Coal Miners Using IoT,” IEEE DevIC 2023.</p>
+            <p>Patent contributor for Smart Work Jacket, Application No. 202311080802, IP India, 2023.</p>
+            <p>5th Place, Anveshana Competition, and Zonal Winner, IIT Roorkee Cognizance Competition.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel reveal">
+          <div class="contact-grid">
+            <div>
+              <p class="kicker">Contact</p>
+              <h2>Let’s connect about front-end hardware roles.</h2>
+              <p>
+                If you are hiring for front-end hardware — RTL design, design verification, FPGA/HLS, low-power, or memory interface — reach out directly. Happy to talk through interviews, referrals, or project collaborations.
+              </p>
+            </div>
+            <div class="contact-links">
+              <a class="contact-link" href="mailto:chiruchandu25@gmail.com"><span>Email</span><strong>chiruchandu25@gmail.com</strong></a>
+              <a class="contact-link" href="tel:+13123712456"><span>Phone</span><strong>(312) 371-2456</strong></a>
+              <a class="contact-link" href="https://linkedin.com/in/chiru-balla" target="_blank" rel="noopener"><span>LinkedIn</span><strong>linkedin.com/in/chiru-balla</strong></a>
+              <span class="contact-link"><span>Location</span><strong>Tukwila, WA</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2026 Chiru Chandana Surya Hasa Balla • RTL • DV • FPGA/HLS • Low Power • Memory Design
+  </footer>
+
+  <script>
+    const roles = [
+      "RTL Design Engineer",
+      "Design Verification Engineer",
+      "FPGA / HLS Acceleration Engineer",
+      "Low Power VLSI Engineer",
+      "Memory Interface & SRAM Engineer"
+    ];
+    const typeTarget = document.getElementById("typeText");
+    let roleIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    function typeLoop() {
+      const word = roles[roleIndex];
+      typeTarget.textContent = deleting ? word.slice(0, charIndex--) : word.slice(0, charIndex++);
+      if (!deleting && charIndex > word.length + 10) deleting = true;
+      if (deleting && charIndex < 0) {
+        deleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        charIndex = 0;
+      }
+      setTimeout(typeLoop, deleting ? 42 : 74);
+    }
+    typeLoop();
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach((el) => observer.observe(el));
+
+    const progress = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = `${Math.max(0, Math.min(100, (scrolled / max) * 100))}%`;
+    });
+
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        projectCards.forEach((card) => {
+          const cats = card.dataset.category || '';
+          card.classList.toggle('hide', filter !== 'all' && !cats.includes(filter));
+        });
+      });
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('portfolio-theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('portfolio-theme', next);
+    });
+  </script>
+</body>
+</html>
